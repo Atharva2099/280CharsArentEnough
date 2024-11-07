@@ -1,4 +1,10 @@
-This explains my test codes:
+---
+title: Allocating multiple blocks in DE
+date: 2024-11-6
+categories: [FreeSpace, C, FileSystems]
+---
+
+# Allocating multiple blocks in DE
 
 
 **Assume 2 DE's A and B we allocate contiguous  blocks for A and then me we then call A again for A to show discontinuous  allocations**
