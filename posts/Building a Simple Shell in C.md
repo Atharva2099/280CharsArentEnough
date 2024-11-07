@@ -8,10 +8,17 @@ categories: [Programming, C, Operating Systems]
 
 Command-line shells are an essential part of operating systems, allowing users to interact with the system via commands. While modern operating systems have powerful, feature-rich shells, understanding how they work at a low level provides crucial insight into process management, input/output operations, and more. In this post, we’ll take a closer look at building a simple shell in C, particularly focusing on three key phases: **Read**, **Parse**, and **Execute**.
 
-<video width="100%" controls>
-  <source src="/videos/ShellProcess.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<div class="video-container">
+  <iframe
+    width="100%"
+    height="500"
+    src="https://youtu.be/2J7g3KcZJ3I"
+    title="Building a Simple Shell in C"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ### 1. The Shell Process Lifecycle
 
