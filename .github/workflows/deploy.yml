@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -30,11 +30,14 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /280CharsArentEnough
 
       - name: Add .nojekyll file
-        run: touch out/.nojekyll
+        run: |
+          touch out/.nojekyll
+          cp -r out/* .
+          rm -rf out
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: gh-pages
-          folder: out
-          clean: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          force_orphan: true
