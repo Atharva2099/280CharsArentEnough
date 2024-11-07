@@ -3,19 +3,10 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  basePath: '/280CharsArentEnough',
-  assetPrefix: '/280CharsArentEnough',
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(png|jpe?g|gif|mp4|webm|ogg)$/i,
-      type: 'asset/resource'
-    });
-    return config;
-  }
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
