@@ -1,13 +1,10 @@
 import '../styles/globals.css'
 import 'prismjs/themes/prism-tomorrow.css'  // Add this line
-import Layout from '../components/Layout'
+// pages/_app.js
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  )
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;

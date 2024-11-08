@@ -1,10 +1,11 @@
 ---
-title: Building a Shell in C
+title: Leetcode No.36 Valid Sudoku
 date: 2024-11-07
 categories:
   - Leetcode 
   - Medium
   - Data Structure and Algorithms
+image: "/images/leetcode-no-36-valid-sudoku.png"
 ---
 
 # Understanding the Sudoku Board Validator - LeetCode Solution

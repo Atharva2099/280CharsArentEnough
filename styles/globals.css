@@ -1,24 +1,55 @@
+/* Reset and Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
+    color: #e0e0e0;
+    background-color: #000000;
+    min-height: 100vh;
 }
 
+/* Container and Layout */
 .container {
+    width: 100%;
     max-width: 1200px;
-    padding: 0 15px;
+    padding: 1rem;
+    margin: 0 auto;
 }
 
-/* Professional Blog Title */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+    }
+}
+
+/* Blog Title */
 .blog-title {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;  /* Reduced margin */
+    color: #ffffff;
+    margin: 1rem 0 1.5rem;
     font-family: 'Georgia', serif;
     letter-spacing: -1px;
     position: relative;
-    padding-bottom: 0.8rem;  /* Reduced padding */
-    font-size: 3.5rem;  /* Smaller font size */
+    padding-bottom: 0.8rem;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .blog-title {
+        font-size: 3.5rem;
+    }
 }
 
 .blog-title::after {
@@ -27,54 +58,56 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;  /* Slightly smaller line */
+    width: 60px;
     height: 3px;
-    background: linear-gradient(to right, #34aedb, #2548d1);
+    background: linear-gradient(to right, #808080, #404040);
     border-radius: 2px;
 }
 
-/* Slimmer Search Container */
+/* Search Container */
 .search-container {
     position: relative;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(255,255,255,0.1);
     border-radius: 50px;
     display: flex;
     overflow: hidden;
-    background: white;
-    margin-bottom: 1rem;  /* Reduced margin */
+    background: #121212;
+    margin: 1rem auto;
+    max-width: 600px;
 }
 
 .search-input {
     border: none !important;
-    padding: 0.8rem 1.5rem !important;  /* Reduced padding */
-    font-size: 1rem !important;  /* Slightly smaller font */
+    padding: 0.8rem 1rem !important;
+    font-size: 16px !important; /* Prevents zoom on mobile */
     border-radius: 50px 0 0 50px !important;
     flex-grow: 1;
+    background: #121212 !important;
+    color: #e0e0e0 !important;
+    -webkit-appearance: none;
 }
 
 .search-btn {
     border-radius: 0 50px 50px 0 !important;
-    padding: 0 1.5rem !important;  /* Reduced padding */
-    font-size: 1rem !important;  /* Smaller font */
+    padding: 0 1.2rem !important;
+    font-size: 16px !important;
     border: none !important;
-    background: #5230d6 !important;
+    background: #404040 !important;
     color: white !important;
+    white-space: nowrap;
 }
 
-.search-btn:hover {
-    background: #310cc6 !important;
-}
-
+/* Categories */
 .categories-container {
-    margin: 0.8rem 0;  /* Reduced margin */
+    margin: 1rem 0;
+    padding: 0 1rem;
 }
 
 .category-label {
     font-size: 1rem;
-    color: #666;
-    margin-right: 0.8rem;
-    display: block;
-    margin-bottom: 0.3rem;
+    color: #a0a0a0;
+    margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .category-list {
@@ -82,207 +115,202 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
+    padding: 0.5rem;
 }
 
 .badge {
-    padding: 0.5rem 1rem;
-    font-weight: normal;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
     border-radius: 20px;
+    background-color: #303030 !important;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    text-decoration: none !important;
+    display: inline-block;
 }
 
-.badge:hover {
-    transform: translateY(-1px);
+/* Card Grid */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+}
+
+.col-md-4 {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        width: 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-4 {
+        width: 33.333333%;
+    }
 }
 
 /* Card Styles */
 .card {
-    transition: transform 0.3s ease;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #121212;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(255,255,255,0.15);
 }
 
-.card-img-top {
+.card-img-container {
+    position: relative;
     width: 100%;
-    height: 200px;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.card-img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+
+.card-body {
+    flex: 1;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-title {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    color: #ffffff;
+    line-height: 1.4;
 }
 
-/* Blog Post Styles */
+/* Blog Post */
 .blog-post {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin: 2rem auto;
+    width: 100%;
     max-width: 800px;
+    margin: 1rem auto;
+    padding: 1rem;
+    background: #121212;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+@media (min-width: 768px) {
+    .blog-post {
+        padding: 2rem;
+        margin: 2rem auto;
+    }
 }
 
 .blog-post h1:first-child {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.blog-post h2, .blog-post h3, .blog-post h4, .blog-post h5, .blog-post h6 {
-    color: #34495e;
-    margin: 1.5rem 0 1rem;
-}
-
-.blog-post p {
+    font-size: 2rem;
     margin-bottom: 1.5rem;
-    text-align: left;
 }
 
-/* Images and videos */
-.blog-post img, .blog-post video {
-    max-width: 100%;
-    height: auto;
-    margin: 2rem auto;
-    display: block;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+@media (min-width: 768px) {
+    .blog-post h1:first-child {
+        font-size: 2.5rem;
+    }
 }
 
-/* Code blocks with macOS theme */
+/* Code Blocks */
 .blog-post pre {
-    background-color: #1e1e2e;
-    padding: 2.5rem 1.5rem 1.5rem;
+    background-color: #1a1a1a;
+    padding: 2.5rem 1rem 1rem;
     border-radius: 12px;
     overflow-x: auto;
-    margin: 1.5rem 0;
-    border: none;
-    color: #c6c8d0;
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    margin: 1.5rem -1rem;
     font-size: 14px;
     line-height: 1.6;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* macOS window buttons */
-.blog-post pre::before {
-    content: '';
+@media (min-width: 768px) {
+    .blog-post pre {
+        padding: 2.5rem 1.5rem 1.5rem;
+        margin: 1.5rem 0;
+    }
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    margin: 1.5rem 0;
+}
+
+.video-container iframe {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 12px;
-    height: 12px;
-    background-color: #ff5f56;
-    border-radius: 50%;
-    box-shadow: 
-        20px 0 0 #ffbd2e,
-        40px 0 0 #27c93f;
-}
-
-/* Code syntax highlighting */
-.highlight {
-    color: #c678dd;  /* Base color for code */
-}
-
-.highlight .k, .highlight .kd, .highlight .kt { /* Keywords */
-    color: #c678dd;
-}
-
-.highlight .n { /* Names */
-    color: #4eb6ff;
-}
-
-.highlight .nf { /* Function names */
-    color: #4eb6ff;
-}
-
-.highlight .na { /* Function/method calls */
-    color: #4eb6ff;
-}
-
-.highlight .s, .highlight .s1, .highlight .s2 { /* Strings */
-    color: #98c379;
-}
-
-.highlight .mi, .highlight .mf { /* Numbers */
-    color: #c678dd;
-}
-
-.highlight .p { /* Punctuation */
-    color: #7f848e;
-}
-
-.highlight .o { /* Operators */
-    color: #98c379;
-}
-
-.highlight .c, .highlight .c1 { /* Comments */
-    color: #7f848e;
-    font-style: italic;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
 }
 
 /* Button Styles */
 .btn {
+    display: inline-block;
     padding: 0.5rem 1.5rem;
-    border-radius: 25px;
+    font-size: 1rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
-    background-color: #593ccb;
-    border-color: #593ccb;
+    background-color: #404040;
+    border: none;
+    color: white;
 }
 
 .btn-primary:hover {
-    background-color: #310cc6;
-    border-color: #310cc6;
+    background-color: #505050;
     transform: translateY(-1px);
 }
 
-.btn-success {
-    background-color: #5d2ecc;
-    border-color: #5d2ecc;
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .card:hover {
+        transform: none;
+    }
+    
+    .btn:hover {
+        transform: none;
+    }
 }
 
-.btn-success:hover {
-    background-color: #4e46b8;
-    border-color: #4e46b8;
-    transform: translateY(-1px);
+/* Dark Mode Specific */
+@media (prefers-color-scheme: dark) {
+    .search-input::placeholder {
+        color: #808080;
+    }
 }
 
-/* Video container */
-.video-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 2rem auto;
-    text-align: center;
-}
-
-.video-container video {
-    max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Further spacing adjustments */
-.row.justify-content-center.mb-4 {
-    margin-bottom: 1rem !important;  /* Reduced margin */
-}
-
-.col-md-8 {
-    margin-bottom: 0.5rem;  /* Added small margin */
-}
-
-/* Adjust badges size */
-.badge {
-    padding: 0.4rem 0.8rem;  /* Slightly smaller padding */
-    font-size: 0.85rem;  /* Smaller font size */
+/* Safari Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+    .search-input {
+        font-size: 16px !important;
+    }
 }

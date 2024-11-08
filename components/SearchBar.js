@@ -1,28 +1,26 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
-export default function SearchBar({ initialQuery = '' }) {
-  const [query, setQuery] = useState(initialQuery);
-  const router = useRouter();
+export default function SearchBar({ onSearch, initialValue = '' }) {
+  const [query, setQuery] = useState(initialValue);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push(`/?q=${encodeURIComponent(query)}`);
+    onSearch(query);
   };
 
   return (
-    <div className="row justify-content-center mb-3">
+    <div className="row justify-content-center mb-4">
       <div className="col-md-8">
         <form onSubmit={handleSubmit}>
           <div className="search-container">
             <input
               type="text"
-              className="form-control search-input"
+              className="search-input form-control"
               placeholder="Search posts..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" className="btn btn-primary search-btn">
+            <button type="submit" className="search-btn">
               Search
             </button>
           </div>

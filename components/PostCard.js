@@ -8,17 +8,16 @@ export default function PostCard({ post }) {
   return (
     <div className="col-md-4 mb-4">
       <div className="card h-100">
-        <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+        <div className="card-img-container">
           <Image
-            src={post.image}
+            src={imgError ? '/images/default.jpg' : post.image}
             alt={post.title}
             fill
-            style={{ 
-              objectFit: 'cover',
-              borderTopLeftRadius: '0.375rem',
-              borderTopRightRadius: '0.375rem'
+            style={{ objectFit: 'cover' }}
+            onError={() => {
+              console.log(`Image error for: ${post.title}`);
+              setImgError(true);
             }}
-            onError={() => setImgError(true)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
           />
@@ -31,7 +30,7 @@ export default function PostCard({ post }) {
               {post.categories.map(category => (
                 <Link 
                   key={category}
-                  href={`/?category=${category}`}
+                  href={`/?category=${encodeURIComponent(category)}`}
                   className="badge bg-secondary text-decoration-none me-1"
                 >
                   {category}
