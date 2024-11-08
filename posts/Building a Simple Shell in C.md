@@ -2,6 +2,7 @@
 title: Building a Shell in C
 date: 2024-10-28
 categories: [Programming, C, Operating Systems]
+image: "/images/building-a-shell-in-c.png"
 ---
 
 # Building a shell with pipes in C 
