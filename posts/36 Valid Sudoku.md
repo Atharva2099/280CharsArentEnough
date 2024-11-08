@@ -21,6 +21,7 @@ Note that empty cells (marked as ".") are allowed and don't affect validity.
 Let's break down the solution into digestible pieces to understand how it efficiently validates a Sudoku board in a single pass.
 
 ```python
+
 def isValidSudoku(self, board: List[List[str]]) -> bool:
     rows = collections.defaultdict(set)
     cols = collections.defaultdict(set)
@@ -40,6 +41,7 @@ Using `defaultdict(set)` is clever because:
 
 ### The Main Algorithm
 ```python
+
 for r in range(9):
     for c in range(9):
         if board[r][c] == ".":
@@ -48,6 +50,7 @@ for r in range(9):
 We iterate through each cell. If it's empty ("."), we skip it.
 
 ```python
+
 if (board[r][c] in rows[r] or
     board[r][c] in cols[c] or 
     board[r][c] in sqrs[(r//3,c//3)]):
@@ -67,6 +70,7 @@ The expression `(r//3,c//3)` is particularly clever:
   - Cell (3,3) maps to square (1,1)
 
 ```python
+
 rows[r].add(board[r][c])
 cols[c].add(board[r][c])
 sqrs[(r//3,c//3)].add(board[r][c])
