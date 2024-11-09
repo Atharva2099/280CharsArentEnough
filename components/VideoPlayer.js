@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 
 export default function VideoPlayer({ videoId }) {
-  // Convert different YouTube URL formats to embed URL
   const getEmbedUrl = (id) => {
-    // Remove any URL parameters or extra parts
+    // Clean the ID from any URL parameters
     const cleanId = id.replace('https://youtu.be/', '')
                      .replace('https://www.youtube.com/watch?v=', '')
                      .replace('https://youtube.com/watch?v=', '')
-                     .split('&')[0];
+                     .split('&')[0]
+                     .split('?')[0];
     
     return `https://www.youtube.com/embed/${cleanId}`;
   };
