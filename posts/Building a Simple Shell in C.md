@@ -13,7 +13,7 @@ Command-line shells are an essential part of operating systems, allowing users t
   <iframe
     width="100%"
     height="500"
-    src="https://youtu.be/2J7g3KcZJ3I"
+    src="[https://youtu.be/2J7g3KcZJ3I](https://youtu.be/2J7g3KcZJ3I?si=LqDurAv2A1pYFtyx)"
     title="Building a Simple Shell in C"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
