@@ -1,25 +1,28 @@
 import { useEffect, useRef } from 'react';
 
-export default function VideoPlayer({ src }) {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-    }
-  }, [src]);
+export default function VideoPlayer({ videoId }) {
+  // Convert different YouTube URL formats to embed URL
+  const getEmbedUrl = (id) => {
+    // Remove any URL parameters or extra parts
+    const cleanId = id.replace('https://youtu.be/', '')
+                     .replace('https://www.youtube.com/watch?v=', '')
+                     .replace('https://youtube.com/watch?v=', '')
+                     .split('&')[0];
+    
+    return `https://www.youtube.com/embed/${cleanId}`;
+  };
 
   return (
     <div className="video-container">
-      <video
-        ref={videoRef}
-        controls
+      <iframe
         width="100%"
-        preload="metadata"
-      >
-        <source src={src} type={`video/${src.split('.').pop()}`} />
-        Your browser does not support the video tag.
-      </video>
+        height="500"
+        src={getEmbedUrl(videoId)}
+        title="YouTube Video"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
     </div>
   );
 }

@@ -1,16 +1,26 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function PostCard({ post }) {
   const [imgError, setImgError] = useState(false);
+  const router = useRouter();
+  
+  // Add basePath to image paths
+  const getImagePath = (path) => {
+    const basePath = process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '';
+    return `${basePath}${path}`;
+  };
+
+  const imageSrc = imgError ? getImagePath('/images/default.jpg') : getImagePath(post.image);
 
   return (
     <div className="col-md-4 mb-4">
       <div className="card h-100">
         <div className="card-img-container">
           <Image
-            src={imgError ? '/images/default.jpg' : post.image}
+            src={imageSrc}
             alt={post.title}
             fill
             style={{ objectFit: 'cover' }}
@@ -28,7 +38,7 @@ export default function PostCard({ post }) {
           {post.categories && (
             <div className="mb-2">
               {post.categories.map(category => (
-                <Link 
+                <Link
                   key={category}
                   href={`/?category=${encodeURIComponent(category)}`}
                   className="badge bg-secondary text-decoration-none me-1"
@@ -38,7 +48,7 @@ export default function PostCard({ post }) {
               ))}
             </div>
           )}
-          <Link 
+          <Link
             href={`/posts/${encodeURIComponent(post.slug)}`}
             className="btn btn-primary mt-auto"
           >

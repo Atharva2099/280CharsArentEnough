@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import { getAllPostIds, getPostData } from '../../lib/posts';
+import { useEffect } from 'react';
 
 export default function Post({ postData }) {
+  // Add error handling for video iframes
+  useEffect(() => {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      iframe.onerror = () => {
+        console.error(`Failed to load iframe: ${iframe.src}`);
+      };
+    });
+  }, []);
+
   return (
     <div className="blog-post">
       <h1>{postData.title}</h1>
