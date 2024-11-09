@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "clean": "rm -rf .next out",
-    "deploy": "npm run clean && npm run build && touch out/.nojekyll"
+    "export": "next build",
+    "deploy": "next build && touch out/.nojekyll"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
