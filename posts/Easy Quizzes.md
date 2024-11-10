@@ -25,6 +25,7 @@ To implement RAG:
 Using **PyPDF2** and **OCR**, my app converts handwritten or scanned notes into text. Each document is chunked into manageable sections for better LLM performance and stored as vectors in ChromaDB.
 
 **RAG Process**
+
 The RAG approach includes:
 1. **Retrieving** relevant text chunks based on a prompt.
 2. **Generating** responses by feeding retrieved information to the LLaMA3 model.
@@ -57,7 +58,7 @@ def generate_flashcards(topic, document_text):
     return flashcards
 ```
 
-**### 4. Key Features and Benefits**
+**4. Key Features and Benefits**
 - **Custom Flashcards in Seconds**: Reduces study prep time by automating question generation.
 - **Accuracy with RAG**: By using retrieval, flashcards focus on relevant information, increasing the quality of study material.
 - **Local Storage and Privacy**: Flashcards and data are stored locally for student privacy and offline access.
