@@ -1,6 +1,3 @@
-
-Given your interests, here’s a blog post idea that aligns well with your background in machine learning, algorithms, and applied AI:
-
 ---
 Title: EasyQuizzes Ai powered FlashCard Generator
 date: 2024-11-07
