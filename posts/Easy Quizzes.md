@@ -1,5 +1,5 @@
 ---
-Title: EasyQuizzes Ai powered FlashCard Generator
+title: EasyQuizzes Ai powered FlashCard Generator
 date: 2024-11-07
 categories:[RAG, LLM, ChromaDB, Hackathon]
 image: "/images/easy-quizzes.png"
