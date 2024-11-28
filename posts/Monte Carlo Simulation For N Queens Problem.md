@@ -182,7 +182,10 @@ if __name__ == "__main__":
 
 ## Plot:
 
-![Simulation Results](/images/n-queen-plot.png)
+## Initial Simulation Results
+![Simulation Results](/images/n-simulation-result.png)
+
+
 ## Results Analysis
 When we run this simulation for n=12:
 1. Our estimates are close to the professor's values:
@@ -312,7 +315,9 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 
 ## Plot:
 
-![Complexity Analysis](/images/n-queens/n-queen-plot.png)
+## Complexity Analysis Results
+
+![Complexity Analysis](/images/n-queen-plot.png)
 
 ## Code
 Find the complete implementation on [GitHub](https://github.com/Atharva2099/AssignmentsButFun/blob/main/CSC510/Monte%20Carlo%20Simulation%20for%20N-Queens%20Using%20Backtracking%20and%20pruning.ipynb).
