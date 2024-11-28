@@ -1,5 +1,5 @@
 ---
-Title: Monte Carlo Simulation for N-Queens Problem
+title: Monte Carlo Simulation for N-Queens Problem
 date: 2024-11-28
 categories:
   - Monte Carlo
@@ -314,4 +314,5 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 
 ![Complexity Analysis](/images/n-queens/n-queen-plot.png)
 
-Code Link:[N-Queens](https://github.com/Atharva2099/AssignmentsButFun/blob/main/CSC510/Monte%20Carlo%20Simulation%20for%20N-Queens%20Using%20Backtracking%20and%20pruning.ipynb)
+## Code
+Find the complete implementation on [GitHub](https://github.com/Atharva2099/AssignmentsButFun/blob/main/CSC510/Monte%20Carlo%20Simulation%20for%20N-Queens%20Using%20Backtracking%20and%20pruning.ipynb).
