@@ -182,7 +182,7 @@ if __name__ == "__main__":
 
 ## Plot:
 
-![Simulation Results](/images/n-queens/n-simulation-result.png)
+![Simulation Results](/images/n-queen-plot.png)
 ## Results Analysis
 When we run this simulation for n=12:
 1. Our estimates are close to the professor's values:
