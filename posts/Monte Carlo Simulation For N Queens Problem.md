@@ -7,7 +7,7 @@ categories:
   - N-Queens
   - Statistics
   - visualisation
-image: /images/monte-carlo-simulation-for-n-queens-problem.jpg
+image: "/images/n-queens/monte-carlo-simulation-for-n-queens-problem.png"
 ---
 
 ## Introduction
@@ -182,7 +182,7 @@ if __name__ == "__main__":
 
 ## Plot:
 
-![[Pasted image 20241128133400.png]]
+![Simulation Results](/images/n-queens/n-simulation-result.png)
 ## Results Analysis
 When we run this simulation for n=12:
 1. Our estimates are close to the professor's values:
@@ -312,4 +312,6 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 
 ## Plot:
 
-![[4 8 12 14 Queen plot.png]]
+![Complexity Analysis](/images/n-queens/n-queen-plot.png)
+
+Code Link:[N-Queens](https://github.com/Atharva2099/AssignmentsButFun/blob/main/CSC510/Monte%20Carlo%20Simulation%20for%20N-Queens%20Using%20Backtracking%20and%20pruning.ipynb)
