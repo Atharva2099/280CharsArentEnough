@@ -1,5 +1,5 @@
 ---
-title: Monte Carlo Simulation for N-Queens Problem
+title: Monte Carlo Simulation For N Queens Problem
 date: 2024-11-28
 categories:
   - Monte Carlo
@@ -7,7 +7,7 @@ categories:
   - N-Queens
   - Statistics
   - visualisation
-image: "/images/n-queens/monte-carlo-simulation-for-n-queens-problem.png"
+image: "/images/monte-carlo-simulation-for-n-queens-problem.png"
 ---
 
 ## Introduction
