@@ -7,7 +7,7 @@ categories:
   - N-Queens
   - Statistics
   - visualisation
-image: images/monte-carlo-simulation-for-n-queens-problem
+image: /images/monte-carlo-simulation-for-n-queens-problem.jpg
 ---
 
 ## Introduction
