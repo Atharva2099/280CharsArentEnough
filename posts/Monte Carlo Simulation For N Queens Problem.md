@@ -21,10 +21,12 @@ Monte Carlo methods use random sampling to obtain numerical results. In our case
 
 ## Setup and Dependencies
 ```python
+
 import random
 import time
 from statistics import mean, stdev
 import numpy as np
+
 ```
 
 ## Core Function: Checking Promising Positions
@@ -33,12 +35,14 @@ We need to determine if a queen placement is valid (promising) by checking:
 - No queen in the diagonals
 
 ```python
+
 def promising(i, j, col):
     """Check if placing a queen at position (i,j) is promising"""
     for k in range(i):
         if (col[k] == j or abs(col[k] - j) == abs(k - i)):
             return False
     return True
+
 ```
 
 ## Monte Carlo Estimation
@@ -51,6 +55,7 @@ The estimation process:
 3. Continue until no promising children or board is full
 
 ```python
+
 def monte_carlo_estimate(n):
     """
     Perform one Monte Carlo estimation for n-Queens problem
@@ -84,6 +89,7 @@ def monte_carlo_estimate(n):
             i += 1
     
     return (total_nodes, promising_nodes)
+
 ```
 
 ## Running Multiple Trials
@@ -94,6 +100,7 @@ To get reliable estimates, we run multiple trials and collect statistics:
 - Execution time
 
 ```python
+
 def run_monte_carlo_simulation(n, num_trials=100):
     """Run multiple Monte Carlo simulations and analyze results"""
     total_estimates = []
@@ -124,6 +131,7 @@ def run_monte_carlo_simulation(n, num_trials=100):
         'num_trials': num_trials,
         'raw_promising': promising_estimates
     }
+
 ```
 
 ## Main Execution and Analysis
@@ -134,6 +142,7 @@ Here we:
 4. Calculate overall averages
 
 ```python
+
 def main():
     n = 12  # Board size
     num_trials = [100, 500, 1000]
@@ -178,9 +187,8 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
 
-## Plot:
+```
 
 ## Initial Simulation Results
 ![Simulation Results](/images/n-simulation-result.png)
@@ -204,8 +212,8 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 ## Plots for 4, 8, 12 and 14 Queens problem on a Log scale
 
 
-
 ```python
+
 	def analyze_complexity(n_values, trials_per_n=1000):
 	
 	"""Analyze time complexity for different values of n"""
@@ -311,9 +319,8 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 	if __name__ == "__main__":
 	
 	main()
-```
 
-## Plot:
+```
 
 ## Complexity Analysis Results
 
