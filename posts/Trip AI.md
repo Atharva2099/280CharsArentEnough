@@ -10,15 +10,15 @@ image: "/images/Trip-AI.jpg"
 # Getting Started with Trip.AI - Your LLM-Powered Travel Companion
 
 ## Overview
-Trip.AI harnesses the power of Large Language Models to transform your travel planning experience. Whether you're planning a weekend getaway or a two-week adventure, Trip.AI helps you create detailed, personalized itineraries with just a few clicks. In this guide, we'll explore how to use Trip.AI and make the most of its features.
+`Trip.AI` harnesses the power of Large Language Models to transform your travel planning experience. Whether you're planning a weekend getaway or a two-week adventure, `Trip.AI` helps you create detailed, personalized itineraries with just a few clicks. In this guide, we'll explore how to use `Trip.AI` and make the most of its features.
 
 ## Problem and Motivation
-Traditional travel planning often involves juggling multiple tabs, cross-referencing reviews, and manually organizing schedules. Trip.AI streamlines this process by leveraging LLMs to generate comprehensive itineraries while giving you full control over the details. The best part? You can try it right now at [Trip.AI](https://atharva2099.github.io/Trip.AI/).
+Traditional travel planning often involves juggling multiple tabs, cross-referencing reviews, and manually organizing schedules. `Trip.AI` streamlines this process by leveraging LLMs to generate comprehensive itineraries while giving you full control over the details. The best part? You can try it right now at [Trip.AI](https://atharva2099.github.io/Trip.AI/).
 
 ## Getting Started
 
 ### 1. Setting Up Access
-There are two ways to get started with Trip.AI:
+There are two ways to get started with `Trip.AI`:
 
 #### Direct Usage
 1. Visit [Trip.AI](https://atharva2099.github.io/Trip.AI/)
@@ -27,6 +27,7 @@ There are two ways to get started with Trip.AI:
 
 #### Local Development
 ```bash
+
 # Clone the repository
 git clone https://github.com/Atharva2099/Trip.AI.git
 cd Trip.AI
@@ -39,6 +40,7 @@ echo "REACT_APP_GROQ_API_KEY=your_key_here" > .env
 
 # Start the development server
 npm start
+
 ```
 
 ### 2. Creating Your First Itinerary
@@ -54,7 +56,7 @@ The process is straightforward:
 ### 3. Smart Features
 
 #### Real-Time Fact Checking
-Trip.AI validates every location and activity it suggests:
+`Trip.AI` validates every location and activity it suggests:
 - Confirms actual existence of locations
 - Verifies distances between activities
 - Checks opening hours and accessibility
@@ -82,20 +84,22 @@ Don't like a suggested activity? No problem! Every element of your itinerary is 
 
 2. **Customization Tricks**
    ```text
+   
    Some effective modification requests:
    - "Find a cheaper alternative to this activity"
    - "Suggest a more local restaurant instead"
    - "Move this activity to earlier in the day"
    - "Find something more kid-friendly"
+   
    ```
 
 3. **Location Management**
-   - Trip.AI automatically optimizes routes
+   - `Trip.AI` automatically optimizes routes
    - Use the map view to ensure distances are comfortable
    - Request changes if locations seem too far apart
 
 ## Future Improvements
-We're constantly working to enhance Trip.AI with features like:
+We're constantly working to enhance `Trip.AI` with features like:
 - Multi-city trip planning
 - Integrated travel booking
 - Group collaboration tools
@@ -103,7 +107,7 @@ We're constantly working to enhance Trip.AI with features like:
 - Offline mode support
 
 ## Conclusion
-Trip.AI demonstrates how LLMs can transform travel planning from a chore into an enjoyable experience. Whether you use the hosted version or run it locally, the combination of intelligent suggestions and real-time customization helps create the perfect itinerary for your needs.
+`Trip.AI` demonstrates how LLMs can transform travel planning from a chore into an enjoyable experience. Whether you use the hosted version or run it locally, the combination of intelligent suggestions and real-time customization helps create the perfect itinerary for your needs.
 
 Want to contribute or suggest features? Check out our [GitHub repository](https://github.com/Atharva2099/Trip.AI)!
 
