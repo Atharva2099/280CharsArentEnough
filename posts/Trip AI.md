@@ -4,7 +4,7 @@ date: 2025-01-10
 categories:
   - React
   - LLM
-image: "/images/Trip-AI.jpg"
+image: "/images/Trip-AI.png"
 ---
 
 # Getting Started with Trip AI - Your LLM-Powered Travel Companion
