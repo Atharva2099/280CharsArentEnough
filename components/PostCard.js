@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
 export default function PostCard({ post }) {
   const [imgError, setImgError] = useState(false);
-  const router = useRouter();
   
   // Add basePath to image paths
   const getImagePath = (path) => {
@@ -17,13 +15,16 @@ export default function PostCard({ post }) {
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card h-100">
+      <div className="card">
         <div className="card-img-container">
           <Image
             src={imageSrc}
             alt={post.title}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ 
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
             onError={() => {
               console.log(`Image error for: ${post.title}`);
               setImgError(true);
@@ -32,10 +33,10 @@ export default function PostCard({ post }) {
             priority
           />
         </div>
-        <div className="card-body d-flex flex-column">
+        <div className="card-body">
           <h5 className="card-title">{post.title}</h5>
           <div className="text-muted small mb-2">{post.date}</div>
-          {post.categories && (
+          {post.categories && post.categories.length > 0 && (
             <div className="mb-2">
               {post.categories.map(category => (
                 <Link
@@ -47,6 +48,9 @@ export default function PostCard({ post }) {
                 </Link>
               ))}
             </div>
+          )}
+          {post.content && (
+            <p className="card-text mb-2">{post.content}</p>
           )}
           <Link
             href={`/posts/${encodeURIComponent(post.slug)}`}
