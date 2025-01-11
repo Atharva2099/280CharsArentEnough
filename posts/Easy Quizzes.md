@@ -2,7 +2,7 @@
 title: EasyQuizzes AI powered FlashCard Generator
 date: 2024-11-07
 categories: [RAG, LLM, ChromaDB, Hackathon]
-image: "/images/easy-quizzes.png"
+image: "/images/easy quizzes.png"
 ---
 
 # Automating Study Material Creation with Retrieval-Augmented Generation (RAG)
