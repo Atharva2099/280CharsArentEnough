@@ -4,13 +4,12 @@ import { useState } from 'react';
 
 export default function PostCard({ post }) {
   const [imgError, setImgError] = useState(false);
-
+  
   const getImagePath = (path) => {
     if (!path || typeof path !== 'string') {
       console.log('No valid path provided, using default');
       return '/images/default.jpg';
     }
-
     // Clean up the path
     const cleanPath = path.startsWith('/') ? path : `/images/${path}`;
     const basePath = process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '';
@@ -19,18 +18,18 @@ export default function PostCard({ post }) {
     console.log('Constructed full path:', fullPath);
     return fullPath;
   };
-
+  
   // Ensure we always have an image path
   const defaultImage = '/images/default.jpg';
   const imageSrc = imgError ? getImagePath(defaultImage) : getImagePath(post.image || defaultImage);
-
+  
   // Ensure we have 2 rows of categories
   const categories = post.categories || [];
   const filledCategories = [...categories];
   while (filledCategories.length < 6) {
     filledCategories.push(null);
   }
-
+  
   return (
     <div className="col-md-4 mb-4">
       <div className="card bg-beige">
