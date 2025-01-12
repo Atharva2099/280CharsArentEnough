@@ -56,10 +56,10 @@ export async function getStaticProps() {
     return acc;
   }, {});
 
-  // Get top 5 categories
+  // Get top 10 categories
   const topCategories = Object.entries(categoryCount)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+    .slice(0, 10)
     .map(([category]) => category);
 
   const sortedPosts = posts.sort((a, b) => {
