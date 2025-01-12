@@ -4,10 +4,10 @@ date: 2025-01-10
 categories:
   - React
   - LLM
-image: "/images/TripAI-Landing-page"
----
 
-# Getting Started with Trip AI - Your LLM-Powered Travel Companion
+image: /images/trip1.png
+
+---
 
 ## Overview
 Trip AI harnesses the power of Large Language Models to transform your travel planning experience. Whether you're planning a weekend getaway or a two-week adventure, Trip AI helps you create detailed, personalized itineraries with just a few clicks. In this guide, we'll explore how to use Trip AI and make the most of its features.

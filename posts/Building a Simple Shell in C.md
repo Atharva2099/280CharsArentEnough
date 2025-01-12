@@ -146,4 +146,6 @@ Building a shell from scratch is an excellent way to learn about process managem
 
 Once you understand how these phases interact, you can experiment with adding more functionality and customization to your shell. And who knows? You might end up building a command-line interface that fits your workflow better than existing ones.
 
--------
+---
+GitHub: [@FullMLAlchemist](https://github.com/Atharva2099)
+Twitter: [@Attharave](https://x.com/attharave)
