@@ -328,3 +328,7 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 
 ## Code
 Find the complete implementation on [GitHub](https://github.com/Atharva2099/AssignmentsButFun/blob/main/CSC510/Monte%20Carlo%20Simulation%20for%20N-Queens%20Using%20Backtracking%20and%20pruning.ipynb).
+
+---
+GitHub: [@FullMLAlchemist](https://github.com/Atharva2099)
+Twitter: [@Attharave](https://x.com/attharave)

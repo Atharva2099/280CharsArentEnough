@@ -105,3 +105,7 @@ If we complete the entire board without finding any duplicates, return `True`.
 
 ## Conclusion
 This solution demonstrates how proper data structure choice (using sets) and clever coordinate mapping (for 3x3 squares) can lead to a clean and efficient solution. While there are other ways to solve this problem, this approach provides an excellent balance of readability and performance.
+
+---
+GitHub: [@FullMLAlchemist](https://github.com/Atharva2099)
+Twitter: [@Attharave](https://x.com/attharave)

@@ -10,7 +10,7 @@ image: "/images/easy quizzes.png"
 ### Overview
 Creating effective study materials from lengthy notes or research papers can be time-consuming. As someone passionate about machine learning and productivity tools, I developed **EasyQuizzes**, an application that uses Retrieval-Augmented Generation (RAG) to turn notes or PDFs into custom flashcards. This blog walks you through how I implemented RAG and structured the app to automate the process.
 
-### Problem and Motivation
+### Problem and Motivtion
 Creating flashcards manually from notes often requires significant time and effort. Inspired by my experience with Quizlet, I wanted to streamline this task by building a tool that uses AI to extract key information and generate flashcards instantly.
 
 ### Solution Architecture
@@ -78,4 +78,6 @@ EasyQuizzes demonstrates how retrieval-augmented generation can save time and en
 Checkout EasyQuizzes at : [EasyQuizzes](https://github.com/Atharva2099/EasyQuizzes)
 
 ---
+GitHub: [@FullMLAlchemist](https://github.com/Atharva2099)
+Twitter: [@Attharave](https://x.com/attharave)
 

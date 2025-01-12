@@ -14,24 +14,53 @@ export async function getStaticProps() {
     const slug = filename.replace(/\.md$/, '');
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const { data } = matter(fileContents);
     
     // Convert slug to match image filename format
     const imageSlug = slug.toLowerCase().replace(/ /g, '-');
-    const imgPath = path.join(process.cwd(), 'public', 'images', `${imageSlug}.png`);
-    const imagePath = fs.existsSync(imgPath) 
-      ? `/images/${imageSlug}.png`
-      : '/images/default.jpg';
+    
+    // Check multiple image formats
+    const imageExtensions = ['png', 'jpg', 'jpeg', 'gif'];
+    let imagePath = '/images/default.jpg';
+    
+    for (const ext of imageExtensions) {
+      const imgPath = path.join(process.cwd(), 'public', 'images', `${imageSlug}.${ext}`);
+      if (fs.existsSync(imgPath)) {
+        imagePath = `/images/${imageSlug}.${ext}`;
+        break;
+      }
+    }
+
+    // If frontmatter specifies an image, use that instead
+    if (data.image) {
+      const customImgPath = path.join(process.cwd(), 'public', data.image.startsWith('/') ? data.image.slice(1) : `images/${data.image}`);
+      if (fs.existsSync(customImgPath)) {
+        imagePath = data.image.startsWith('/') ? data.image : `/images/${data.image}`;
+      }
+    }
 
     return {
       slug,
       title: data.title || filename.replace('.md', ''),
       date: data.date ? new Date(data.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
       categories: data.categories || [],
-      image: imagePath,
-      content: content.slice(0, 150) + '...'
+      image: imagePath
     };
   });
+
+  // Count category occurrences
+  const categoryCount = posts.reduce((acc, post) => {
+    post.categories.forEach(category => {
+      acc[category] = (acc[category] || 0) + 1;
+    });
+    return acc;
+  }, {});
+
+  // Get top 5 categories
+  const topCategories = Object.entries(categoryCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([category]) => category);
 
   const sortedPosts = posts.sort((a, b) => {
     if (a.date < b.date) return 1;
@@ -41,22 +70,19 @@ export async function getStaticProps() {
 
   return {
     props: {
-      posts: sortedPosts
+      posts: sortedPosts,
+      topCategories
     }
   };
 }
 
-export default function Home({ posts }) {
+export default function Home({ posts, topCategories }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Get unique categories
-  const categories = [...new Set(posts.flatMap(post => post.categories))];
-
   // Filter posts based on search and category
   const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.content.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = !selectedCategory || post.categories.includes(selectedCategory);
     return matchesSearch && matchesCategory;
   });
@@ -83,7 +109,7 @@ export default function Home({ posts }) {
               >
                 All
               </Link>
-              {categories.map(category => (
+              {topCategories.map(category => (
                 <Link
                   key={category}
                   href={`/?category=${category}`}
