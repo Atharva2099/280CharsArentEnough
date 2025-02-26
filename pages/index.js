@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import PostCard from '../components/PostCard';
 import SearchBar from '../components/SearchBar';
+import Timeline from '../components/Timeline';
+import Layout from '../components/Layout';
+import { extractSummary } from '../lib/posts';
 
 export async function getStaticProps() {
-  const fs = require('fs');
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
 
@@ -14,7 +16,7 @@ export async function getStaticProps() {
     const slug = filename.replace(/\.md$/, '');
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
+    const { data, content } = matter(fileContents);
     
     // Convert slug to match image filename format
     const imageSlug = slug.toLowerCase().replace(/ /g, '-');
@@ -39,12 +41,28 @@ export async function getStaticProps() {
       }
     }
 
+    // Extract first paragraph as summary if no summary in frontmatter
+    let summary = data.summary;
+    if (!summary) {
+      // Find first paragraph (text not starting with # and ending with newline)
+      const paragraphMatch = content.match(/^(?:(?!^#).*$)(?:\n|$)/m);
+      if (paragraphMatch) {
+        summary = paragraphMatch[0].trim();
+        // Truncate if needed
+        if (summary.length > 160) {
+          summary = summary.substring(0, 160).trim() + '...';
+        }
+      }
+    }
+
     return {
       slug,
       title: data.title || filename.replace('.md', ''),
       date: data.date ? new Date(data.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
       categories: data.categories || [],
-      image: imagePath
+      image: imagePath,
+      summary: summary || 'Read this post to learn more...',
+      content: content
     };
   });
 
@@ -88,50 +106,43 @@ export default function Home({ posts, topCategories }) {
   });
 
   return (
-    <div>
+    <Layout>
       <SearchBar 
         onSearch={setSearchQuery} 
         initialValue={searchQuery}
       />
 
-      <div className="row justify-content-center mb-4">
-        <div className="col-md-8 text-center">
-          <div className="categories-container">
-            <span className="category-label">Categories:</span>
-            <div className="category-list">
-              <Link 
-                href="/"
-                className={`badge ${!selectedCategory ? 'bg-primary' : 'bg-secondary'} text-decoration-none`}
+      {topCategories.length > 0 && (
+        <div className="categories-container">
+          <div className="category-list">
+            <Link 
+              href="/"
+              className={`timeline-category ${!selectedCategory ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedCategory('');
+              }}
+            >
+              All
+            </Link>
+            {topCategories.map(category => (
+              <Link
+                key={category}
+                href={`/?category=${category}`}
+                className={`timeline-category ${category === selectedCategory ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  setSelectedCategory('');
+                  setSelectedCategory(category);
                 }}
               >
-                All
+                {category}
               </Link>
-              {topCategories.map(category => (
-                <Link
-                  key={category}
-                  href={`/?category=${category}`}
-                  className={`badge ${category === selectedCategory ? 'bg-primary' : 'bg-secondary'} text-decoration-none me-1`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedCategory(category);
-                  }}
-                >
-                  {category}
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="row mt-4">
-        {filteredPosts.map(post => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </div>
-    </div>
+      <Timeline posts={filteredPosts} />
+    </Layout>
   );
 }

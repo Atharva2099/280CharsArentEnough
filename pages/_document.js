@@ -10,15 +10,15 @@ export default function Document() {
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossOrigin="anonymous"
         />
-        {/* Add Charter font - Medium's serif font */}
-        <link 
-          href="https://fonts.cdnfonts.com/css/charter"
+        {/* System fonts */}
+        <link
           rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         />
-        {/* Backup Crimson Pro */}
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+        {/* Highlight.js */}
+        <link
           rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
         />
       </Head>
       <body>

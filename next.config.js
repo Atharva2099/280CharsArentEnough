@@ -7,6 +7,8 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/280CharsArentEnough' : '',
   trailingSlash: true,
+  // Disable API routes
+  rewrites: () => [],
 };
 
 module.exports = nextConfig;

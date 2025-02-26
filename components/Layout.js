@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Layout({ children }) {
   return (
@@ -7,14 +8,20 @@ export default function Layout({ children }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="280CharsArentEnough - A blog about tech, coding, and more" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" />
         <title>280CharsArentEnough</title>
       </Head>
       <div className="container mt-4">
-        <div className="text-center mb-4">
-          <h1 className="blog-title">280CharsArentEnough</h1>
-        </div>
-        {children}
+        <header className="text-center mb-5">
+          <Link href="/" className="text-decoration-none">
+            <h1 className="blog-title">280CharsArentEnough</h1>
+          </Link>
+          <p className="subtitle">
+            Thoughts that don't fit in your average tweet
+          </p>
+        </header>
+        <main>
+          {children}
+        </main>
       </div>
     </>
   );
