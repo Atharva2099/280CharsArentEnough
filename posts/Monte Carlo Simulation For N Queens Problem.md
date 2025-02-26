@@ -211,6 +211,7 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 
 ## Plots for 4, 8, 12 and 14 Queens problem on a Log scale
 
+Analysisng the data:
 
 ```python
 
@@ -257,9 +258,11 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 	print(f"Execution Time: {exec_time:.4f} seconds")
 	
 	return total_nodes_avg, promising_nodes_avg, execution_times
-	
+```	
 	  
-	
+Plotting the graphs:
+
+```python	
 	def plot_complexity_analysis(n_values, total_nodes, promising_nodes, times):
 	
 	fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
@@ -297,9 +300,10 @@ The Monte Carlo simulation effectively estimates the complexity of the N-Queens 
 	plt.tight_layout()
 	
 	plt.show()
-	
-	  
-	
+```
+
+Main Function: 
+```python
 	def main():
 	
 	random.seed(123)
