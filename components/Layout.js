@@ -91,7 +91,7 @@ export default function Layout({ children }) {
             <h1 className="blog-title">280CharsArentEnough</h1>
           </Link>
           <p className="subtitle">
-            Thoughts that don't fit in your average tweet
+            Thoughts that don&apos;t fit in your average tweet
           </p>
         </header>
         <main>
