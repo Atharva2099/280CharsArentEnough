@@ -1,69 +1,64 @@
 import Link from 'next/link';
-import { extractSummary } from '../lib/posts';
 
-export default function Timeline({ posts }) {
-  // Sort posts by date in descending order (newest first)
-  const sortedPosts = [...posts].sort((a, b) => 
-    new Date(b.date) - new Date(a.date)
-  );
+export default function PostGrid({ posts }) {
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div className="timeline">
-      <div className="timeline-items">
-        {sortedPosts.map((post, index) => {
-          // Format date for display
-          const date = new Date(post.date);
-          const formattedDate = date.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric'
-          });
-          
-          // Get only first 3 categories max
-          const displayCategories = post.categories?.slice(0, 3) || [];
-          
-          // Get summary (first 160 characters or from frontmatter)
-          const summary = post.summary || extractSummary(post);
-          
-          return (
-            <div className="timeline-item" key={post.slug}>
-              <div className="timeline-date">{formattedDate}</div>
-              <div className="timeline-content">
-                <h3 className="timeline-title">
-                  <Link href={`/posts/${encodeURIComponent(post.slug)}`}>
-                    {post.title}
-                  </Link>
-                </h3>
-                
-                {displayCategories.length > 0 && (
-                  <div className="timeline-categories">
-                    {displayCategories.map((category, idx) => (
-                      <span key={`${post.slug}-${category}`}>
-                        <Link
-                          href={`/?category=${encodeURIComponent(category)}`}
-                          className="timeline-category"
-                        >
-                          {category}
-                        </Link>
-                        {idx < displayCategories.length - 1 && <span style={{ color: '#666', margin: '0 4px' }}>•</span>}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
-                <p className="timeline-summary">{summary}</p>
-                
-                <Link
-                  href={`/posts/${encodeURIComponent(post.slug)}`}
-                  className="read-more"
-                >
-                  Read more →
-                </Link>
-              </div>
+    <section className="post-list" aria-live="polite">
+      {sortedPosts.map(post => {
+        const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+
+        const isResearch = post.type === 'research';
+        const itemClassName = `post-row ${isResearch ? 'research' : ''}`.trim();
+        const destination = post.external_url || `/posts/${encodeURIComponent(post.slug)}`;
+        const isExternal = Boolean(post.external_url);
+
+        const body = (
+          <>
+            <div className="post-row-accent" aria-hidden="true" />
+            <div className="post-row-content">
+              <p className="post-date">{formattedDate}</p>
+              {isResearch && <span className="research-badge">Research</span>}
+              <h2 className="post-title">{post.title}</h2>
+              <p className="post-summary">{post.summary}</p>
+              {post.categories?.length > 0 && (
+                <div className="post-tags">
+                  {post.categories.map(category => (
+                    <span className="post-tag" key={`${post.slug}-${category}`}>
+                      {category}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <span className="read-more-link">
+                Read more <span className="read-more-arrow">→</span>
+              </span>
             </div>
+          </>
+        );
+
+        if (isExternal) {
+          return (
+            <article key={post.slug} className={itemClassName}>
+              <a href={destination} target="_blank" rel="noreferrer" className="post-row-link">
+                {body}
+              </a>
+            </article>
           );
-        })}
-      </div>
-    </div>
+        }
+
+        return (
+          <article key={post.slug} className={itemClassName}>
+            <Link href={destination} className="post-row-link">
+              {body}
+            </Link>
+          </article>
+        );
+      })}
+    </section>
   );
 }

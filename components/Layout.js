@@ -5,36 +5,29 @@ import { useEffect } from 'react';
 export default function Layout({ children }) {
   useEffect(() => {
     function addCopyButtons() {
-      // First, remove any existing copy buttons to avoid duplicates
-      document.querySelectorAll('.code-copy-btn').forEach(btn => btn.remove());
-      
+      document.querySelectorAll('.code-copy-btn').forEach(button => button.remove());
       const codeBlocks = document.querySelectorAll('.blog-post pre');
-      
+
       codeBlocks.forEach(block => {
-        // Position the pre element relatively if it's not already
         if (window.getComputedStyle(block).position !== 'relative') {
           block.style.position = 'relative';
         }
-        
-        // Create button
+
         const button = document.createElement('button');
         button.className = 'code-copy-btn';
         button.textContent = 'Copy';
         button.setAttribute('aria-label', 'Copy code to clipboard');
-        
-        // Add click handler
-        button.addEventListener('click', (e) => {
-          // Prevent the click from being triggered multiple times
-          e.stopPropagation();
-          
+
+        button.addEventListener('click', event => {
+          event.stopPropagation();
           const code = block.querySelector('code')?.innerText || '';
-          
+
           navigator.clipboard.writeText(code)
             .then(() => {
               button.textContent = 'Copied!';
-              button.style.background = '#28a745';
+              button.style.background = 'var(--accent)';
               button.style.color = 'white';
-              
+
               setTimeout(() => {
                 button.textContent = 'Copy';
                 button.style.background = '';
@@ -48,32 +41,16 @@ export default function Layout({ children }) {
               }, 2000);
             });
         });
-        
-        // Add to DOM
+
         block.appendChild(button);
       });
     }
 
-    // Remove any default browser "Copy" button that might be added automatically
-    function removeDefaultCopyButtons() {
-      // Look for any buttons at the bottom of pre elements
-      document.querySelectorAll('.blog-post pre button:not(.code-copy-btn)').forEach(btn => {
-        if (btn.textContent.toLowerCase().includes('copy')) {
-          btn.remove();
-        }
-      });
-    }
+    const timeoutId = setTimeout(addCopyButtons, 500);
 
-    // Run after initial render with a slight delay to ensure DOM is ready
-    const timeoutId = setTimeout(() => {
-      addCopyButtons();
-      removeDefaultCopyButtons();
-    }, 500);
-    
-    // Clean up
     return () => {
       clearTimeout(timeoutId);
-      document.querySelectorAll('.code-copy-btn').forEach(btn => btn.remove());
+      document.querySelectorAll('.code-copy-btn').forEach(button => button.remove());
     };
   }, []);
 
@@ -82,21 +59,32 @@ export default function Layout({ children }) {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="280CharsArentEnough - A blog about tech, coding, and more" />
+        <meta name="description" content="280CharsArentEnough - A blog about tech, coding, and research" />
         <title>280CharsArentEnough</title>
       </Head>
-      <div className="container mt-4">
-        <header className="text-center mb-5">
-          <Link href="/" className="text-decoration-none">
-            <h1 className="blog-title">280CharsArentEnough</h1>
-          </Link>
-          <p className="subtitle">
-            Thoughts that don&apos;t fit in your average tweet
-          </p>
+
+      <div className="site-shell">
+        <header className="site-header">
+          <div className="container site-header-inner">
+            <Link href="/" className="brand-link">
+              <span className="brand-name">280CharsArentEnough</span>
+            </Link>
+            <p className="brand-tagline">thoughts too long for a tweet</p>
+          </div>
         </header>
-        <main>
-          {children}
-        </main>
+
+        <main className="container site-main">{children}</main>
+
+        <footer className="site-footer">
+          <div className="container site-footer-inner">
+            <p className="footer-copy">© {new Date().getFullYear()} 280CharsArentEnough</p>
+            <nav className="footer-links" aria-label="External links">
+              <a href="https://github.com/Atharva2099" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://huggingface.co/Atharva2099" target="_blank" rel="noreferrer">HuggingFace</a>
+              <a href="https://atharva2099.github.io" target="_blank" rel="noreferrer">Portfolio</a>
+            </nav>
+          </div>
+        </footer>
       </div>
     </>
   );

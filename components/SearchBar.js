@@ -1,34 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SearchBar({ onSearch, initialValue = '' }) {
   const [query, setQuery] = useState(initialValue);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(query);
-  };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      onSearch(query);
+    }, 150);
+
+    return () => clearTimeout(timeoutId);
+  }, [query, onSearch]);
+
+  useEffect(() => {
+    setQuery(initialValue);
+  }, [initialValue]);
 
   return (
-    <div className="row justify-content-center mb-4">
-      <div className="col-md-8">
-        <form onSubmit={handleSubmit}>
-          <div className="search-container">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search posts..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button type="submit" className="search-btn">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" 
-                      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </div>
-        </form>
+    <form className="search-form" onSubmit={event => event.preventDefault()}>
+      <label className="sr-only" htmlFor="post-search">
+        Search posts
+      </label>
+      <div className="search-container">
+        <svg className="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M21 21L15.8 15.8M10.9 18a7.1 7.1 0 1 1 0-14.2 7.1 7.1 0 0 1 0 14.2Z"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <input
+          id="post-search"
+          type="text"
+          className="search-input"
+          placeholder="Search posts, topics..."
+          value={query}
+          onChange={event => setQuery(event.target.value)}
+        />
       </div>
-    </div>
+    </form>
   );
 }

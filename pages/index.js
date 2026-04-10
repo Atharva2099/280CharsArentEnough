@@ -1,12 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import SearchBar from '../components/SearchBar';
-import Timeline from '../components/Timeline';
+import PostGrid from '../components/Timeline';
 import Layout from '../components/Layout';
-import { extractSummary } from '../lib/posts';
+
+const BUCKETS = [
+  {
+    name: 'Research',
+    members: ['research', 'rl', 'llm', 'distillation', 'rppg', 'rag', 'machine learning', 'ai']
+  },
+  {
+    name: 'Projects',
+    members: ['projects', 'project', 'hackathon', 'demo', 'build', 'react']
+  },
+  {
+    name: 'Explainers',
+    members: ['explainers', 'tutorial', 'walkthrough', 'how-to', 'how to', 'guide']
+  },
+  {
+    name: 'Algorithms',
+    members: ['algorithms', 'leetcode', 'dsa', 'data structure and algorithms', 'monte carlo', 'backtracking', 'n-queens']
+  },
+  {
+    name: 'Systems',
+    members: ['systems', 'c', 'os', 'operating systems', 'low-level', 'low level', 'networking', 'programming']
+  }
+];
+
+function postMatchesBucket(post, selectedBucket) {
+  if (!selectedBucket) return true;
+  const bucket = BUCKETS.find(item => item.name === selectedBucket);
+  if (!bucket) return true;
+
+  const categorySet = new Set((post.categories || []).map(category => String(category).toLowerCase().trim()));
+  return bucket.members.some(member => categorySet.has(member));
+}
 
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), 'posts');
@@ -17,14 +48,11 @@ export async function getStaticProps() {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
-    
-    // Convert slug to match image filename format
+
     const imageSlug = slug.toLowerCase().replace(/ /g, '-');
-    
-    // Check multiple image formats
     const imageExtensions = ['png', 'jpg', 'jpeg', 'gif'];
     let imagePath = '/images/default.jpg';
-    
+
     for (const ext of imageExtensions) {
       const imgPath = path.join(process.cwd(), 'public', 'images', `${imageSlug}.${ext}`);
       if (fs.existsSync(imgPath)) {
@@ -33,52 +61,33 @@ export async function getStaticProps() {
       }
     }
 
-    // If frontmatter specifies an image, use that instead
     if (data.image) {
-      const customImgPath = path.join(process.cwd(), 'public', data.image.startsWith('/') ? data.image.slice(1) : `images/${data.image}`);
+      const rawImage = String(data.image);
+      const customImgPath = path.join(
+        process.cwd(),
+        'public',
+        rawImage.startsWith('/') ? rawImage.slice(1) : `images/${rawImage}`
+      );
       if (fs.existsSync(customImgPath)) {
-        imagePath = data.image.startsWith('/') ? data.image : `/images/${data.image}`;
-      }
-    }
-
-    // Extract first paragraph as summary if no summary in frontmatter
-    let summary = data.summary;
-    if (!summary) {
-      // Find first paragraph (text not starting with # and ending with newline)
-      const paragraphMatch = content.match(/^(?:(?!^#).*$)(?:\n|$)/m);
-      if (paragraphMatch) {
-        summary = paragraphMatch[0].trim();
-        // Truncate if needed
-        if (summary.length > 160) {
-          summary = summary.substring(0, 160).trim() + '...';
-        }
+        imagePath = rawImage.startsWith('/') ? rawImage : `/images/${rawImage}`;
       }
     }
 
     return {
       slug,
       title: data.title || filename.replace('.md', ''),
-      date: data.date ? new Date(data.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
-      categories: data.categories || [],
+      date: data.date
+        ? new Date(data.date).toISOString().split('T')[0]
+        : new Date().toISOString().split('T')[0],
+      categories: Array.isArray(data.categories) ? data.categories.map(category => String(category).trim()) : [],
       image: imagePath,
-      summary: summary || 'Read this post to learn more...',
-      content: content
+      summary: data.summary || 'Read this post to learn more...',
+      type: data.type || 'post',
+      external_url: data.external_url || null,
+      status: data.status || null,
+      content
     };
   });
-
-  // Count category occurrences
-  const categoryCount = posts.reduce((acc, post) => {
-    post.categories.forEach(category => {
-      acc[category] = (acc[category] || 0) + 1;
-    });
-    return acc;
-  }, {});
-
-  // Get top 10 categories
-  const topCategories = Object.entries(categoryCount)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
-    .map(([category]) => category);
 
   const sortedPosts = posts.sort((a, b) => {
     if (a.date < b.date) return 1;
@@ -89,60 +98,82 @@ export async function getStaticProps() {
   return {
     props: {
       posts: sortedPosts,
-      topCategories
+      buckets: BUCKETS.map(bucket => bucket.name)
     }
   };
 }
 
-export default function Home({ posts, topCategories }) {
+export default function Home({ posts, buckets }) {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Filter posts based on search and category
-  const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = !selectedCategory || post.categories.includes(selectedCategory);
-    return matchesSearch && matchesCategory;
-  });
+  useEffect(() => {
+    if (!router.isReady) return;
+    const category = typeof router.query.category === 'string' ? router.query.category : '';
+    if (buckets.includes(category)) {
+      setSelectedCategory(category);
+      return;
+    }
+    setSelectedCategory('');
+  }, [router.isReady, router.query.category, buckets]);
+
+  const filteredPosts = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+
+    return posts.filter(post => {
+      const matchesSearch =
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        post.summary.toLowerCase().includes(q) ||
+        post.categories.some(category => category.toLowerCase().includes(q));
+
+      const matchesCategory = postMatchesBucket(post, selectedCategory);
+      return matchesSearch && matchesCategory;
+    });
+  }, [posts, searchQuery, selectedCategory]);
+
+  const handleCategoryChange = category => {
+    setSelectedCategory(category);
+
+    const query = category ? { category } : {};
+    router.replace(
+      {
+        pathname: '/',
+        query
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
     <Layout>
-      <SearchBar 
-        onSearch={setSearchQuery} 
-        initialValue={searchQuery}
-      />
+      <section className="home-toolbar">
+        <SearchBar onSearch={setSearchQuery} initialValue={searchQuery} />
 
-      {topCategories.length > 0 && (
-        <div className="categories-container">
-          <div className="category-list">
-            <Link 
-              href="/"
-              className={`timeline-category ${!selectedCategory ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedCategory('');
-              }}
+        <div className="filter-bar" role="tablist" aria-label="Post categories">
+          <button
+            type="button"
+            className={`filter-pill ${selectedCategory === '' ? 'active' : ''}`}
+            onClick={() => handleCategoryChange('')}
+          >
+            All
+          </button>
+          {buckets.map(bucket => (
+            <button
+              key={bucket}
+              type="button"
+              className={`filter-pill ${selectedCategory === bucket ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(bucket)}
             >
-              All
-            </Link>
-            {topCategories.map(category => (
-              <Link
-                key={category}
-                href={`/?category=${category}`}
-                className={`timeline-category ${category === selectedCategory ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory(category);
-                }}
-              >
-                {category}
-              </Link>
-            ))}
-          </div>
+              {bucket}
+            </button>
+          ))}
         </div>
-      )}
+      </section>
 
-      <Timeline posts={filteredPosts} />
+      <PostGrid posts={filteredPosts} />
     </Layout>
   );
 }

@@ -1,12 +1,11 @@
 ---
-Title: Getting Started with Trip AI Your LLM Powered Travel Companion
+title: "Getting Started with Trip AI Your LLM Powered Travel Companion"
 date: 2025-01-10
-categories:
-  - React
-  - LLM
-
-image: /images/trip1.png
-
+categories: [Projects, LLM, React]
+type: post
+summary: "A practical setup and usage guide for Trip AI, including itinerary generation, customization, and local development tips."
+image: "/images/trip1.png"
+external_url:
 ---
 
 ## Overview

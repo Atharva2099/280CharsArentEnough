@@ -25,7 +25,7 @@ export default function CodeCopyButton() {
           navigator.clipboard.writeText(code)
             .then(() => {
               button.textContent = 'Copied!';
-              button.style.background = '#28a745';
+              button.style.background = 'var(--accent)';
               button.style.color = 'white';
               
               setTimeout(() => {

@@ -1,13 +1,11 @@
 ---
-title: Monte Carlo Simulation For N Queens Problem
+title: "Monte Carlo Simulation For N Queens Problem"
 date: 2024-11-28
-categories:
-  - Monte Carlo
-  - BackTracking
-  - N-Queens
-  - Statistics
-  - visualisation
+categories: [Algorithms, Monte Carlo, Backtracking]
+type: post
+summary: "An experiment-driven explanation of estimating N-Queens search complexity with Monte Carlo sampling and backtracking."
 image: "/images/monte-carlo-simulation-for-n-queens-problem.png"
+external_url:
 ---
 
 ## Introduction

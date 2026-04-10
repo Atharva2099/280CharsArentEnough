@@ -1,8 +1,11 @@
 ---
-title: Building a Shell in C
+title: "Building a Shell in C"
 date: 2024-10-28
-categories: [Programming, C, Operating Systems]
-image: "/images/building-a-shell-in-c.png"
+categories: [Systems, C, Programming]
+type: post
+summary: "A hands-on walkthrough of building a Unix-style shell in C using fork, exec, pipes, and process control."
+image: "/images/building-a-simple-shell-in-c.png"
+external_url:
 ---
 
 # Building a shell with pipes in C 

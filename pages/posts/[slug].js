@@ -7,6 +7,21 @@ import matter from 'gray-matter';
 import { renderMarkdown } from '../../lib/posts';
 import { createYouTubeEmbed } from '../../utils/youtube';
 
+function stripLeadingH1(markdown) {
+  const lines = markdown.split('\n');
+  const firstContentLine = lines.findIndex(line => line.trim() !== '');
+
+  if (firstContentLine !== -1 && /^#\s+/.test(lines[firstContentLine])) {
+    lines.splice(firstContentLine, 1);
+
+    while (firstContentLine < lines.length && lines[firstContentLine].trim() === '') {
+      lines.splice(firstContentLine, 1);
+    }
+  }
+
+  return lines.join('\n');
+}
+
 export default function Post({ postData }) {
   // Add error handling for video iframes
   useEffect(() => {
@@ -42,7 +57,7 @@ export default function Post({ postData }) {
                   >
                     {category}
                   </Link>
-                  {idx < postData.categories.length - 1 && <span style={{ color: '#666', margin: '0 4px' }}>•</span>}
+                  {idx < postData.categories.length - 1 && <span className="category-separator">•</span>}
                 </span>
               ))}
             </div>
@@ -84,7 +99,7 @@ export async function getStaticProps({ params }) {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  let htmlContent = content;
+  let htmlContent = stripLeadingH1(content);
   
   // Replace YouTube links with embeds
   htmlContent = htmlContent.replace(

@@ -1,11 +1,11 @@
 ---
-title: Leetcode No.36 Valid Sudoku
+title: "Leetcode No.36 Valid Sudoku"
 date: 2024-11-07
-categories:
-  - Leetcode 
-  - Medium
-  - Data Structure and Algorithms
-image: "/images/leetcode-no-36-valid-sudoku.png"
+categories: [Algorithms, Leetcode, DSA]
+type: post
+summary: "A clean single-pass Sudoku validator using hash sets to track rows, columns, and 3x3 boxes efficiently."
+image: "/images/leetcode-36-valid-sudoku.png"
+external_url:
 ---
 
 # Understanding the Sudoku Board Validator - LeetCode Solution

@@ -1,8 +1,11 @@
 ---
-title: EasyQuizzes AI powered FlashCard Generator
+title: "EasyQuizzes AI Powered Flashcard Generator"
 date: 2024-11-07
-categories: [RAG, LLM, ChromaDB, Hackathon]
-image: "/images/easy quizzes.png"
+categories: [Projects, RAG, LLM, Hackathon]
+type: post
+summary: "How EasyQuizzes combines retrieval-augmented generation and vector search to generate study flashcards from notes and PDFs."
+image: "/images/easy-quizzes.png"
+external_url:
 ---
 
 # Automating Study Material Creation with Retrieval-Augmented Generation (RAG)
