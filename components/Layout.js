@@ -25,13 +25,15 @@ export default function Layout({ children }) {
           navigator.clipboard.writeText(code)
             .then(() => {
               button.textContent = 'Copied!';
-              button.style.background = 'var(--accent)';
-              button.style.color = 'white';
+              button.style.background = 'var(--color-magenta)';
+              button.style.color = 'var(--color-black)';
+              button.style.borderColor = 'var(--color-magenta)';
 
               setTimeout(() => {
                 button.textContent = 'Copy';
                 button.style.background = '';
                 button.style.color = '';
+                button.style.borderColor = '';
               }, 2000);
             })
             .catch(() => {

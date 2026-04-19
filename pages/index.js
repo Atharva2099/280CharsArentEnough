@@ -39,6 +39,18 @@ function postMatchesBucket(post, selectedBucket) {
   return bucket.members.some(member => categorySet.has(member));
 }
 
+function postMatchesCategory(post, selectedCategory) {
+  if (!selectedCategory) return true;
+
+  const bucketExists = BUCKETS.some(bucket => bucket.name === selectedCategory);
+  if (bucketExists) {
+    return postMatchesBucket(post, selectedCategory);
+  }
+
+  const normalizedSelectedCategory = selectedCategory.toLowerCase().trim();
+  return (post.categories || []).some(category => String(category).toLowerCase().trim() === normalizedSelectedCategory);
+}
+
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
@@ -111,12 +123,12 @@ export default function Home({ posts, buckets }) {
   useEffect(() => {
     if (!router.isReady) return;
     const category = typeof router.query.category === 'string' ? router.query.category : '';
-    if (buckets.includes(category)) {
+    if (category) {
       setSelectedCategory(category);
       return;
     }
     setSelectedCategory('');
-  }, [router.isReady, router.query.category, buckets]);
+  }, [router.isReady, router.query.category]);
 
   const filteredPosts = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -128,7 +140,7 @@ export default function Home({ posts, buckets }) {
         post.summary.toLowerCase().includes(q) ||
         post.categories.some(category => category.toLowerCase().includes(q));
 
-      const matchesCategory = postMatchesBucket(post, selectedCategory);
+      const matchesCategory = postMatchesCategory(post, selectedCategory);
       return matchesSearch && matchesCategory;
     });
   }, [posts, searchQuery, selectedCategory]);
@@ -146,7 +158,6 @@ export default function Home({ posts, buckets }) {
       { shallow: true }
     );
   };
-
   return (
     <Layout>
       <section className="home-toolbar">

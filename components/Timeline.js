@@ -19,24 +19,29 @@ export default function PostGrid({ posts }) {
 
         const body = (
           <>
-            <div className="post-row-accent" aria-hidden="true" />
             <div className="post-row-content">
-              <p className="post-date">{formattedDate}</p>
-              {isResearch && <span className="research-badge">Research</span>}
-              <h2 className="post-title">{post.title}</h2>
-              <p className="post-summary">{post.summary}</p>
-              {post.categories?.length > 0 && (
-                <div className="post-tags">
-                  {post.categories.map(category => (
-                    <span className="post-tag" key={`${post.slug}-${category}`}>
-                      {category}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <span className="read-more-link">
-                Read more <span className="read-more-arrow">→</span>
-              </span>
+              <div className="post-meta">
+                <div className="post-row-accent" aria-hidden="true" />
+                <p className="post-date">{formattedDate}</p>
+                {isResearch && <span className="research-badge">Research</span>}
+              </div>
+
+              <div className="post-main">
+                <h2 className="post-title">{post.title}</h2>
+                <p className="post-summary">{post.summary}</p>
+                {post.categories?.length > 0 && (
+                  <div className="post-tags">
+                    {post.categories.map(category => (
+                      <span className="post-tag" key={`${post.slug}-${category}`}>
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <span className="read-more-link">
+                  Read more <span className="read-more-arrow">→</span>
+                </span>
+              </div>
             </div>
           </>
         );

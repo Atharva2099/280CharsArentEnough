@@ -45,13 +45,13 @@ export default function Post({ postData }) {
       <article className="blog-post">
         <header className="blog-post-header">
           <h1>{postData.title}</h1>
-          <div className="text-muted mb-4">{formattedDate}</div>
-          
+          <div className="text-muted">{formattedDate}</div>
+
           {postData.categories && postData.categories.length > 0 && (
-            <div className="mb-4 timeline-categories">
+            <div className="timeline-categories">
               {postData.categories.map((category, idx) => (
                 <span key={category}>
-                  <Link 
+                  <Link
                     href={`/?category=${encodeURIComponent(category)}`}
                     className="timeline-category"
                   >
@@ -62,13 +62,15 @@ export default function Post({ postData }) {
               ))}
             </div>
           )}
+
+          {postData.summary ? <p className="blog-summary">{postData.summary}</p> : null}
         </header>
-        
+
         <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: postData.htmlContent }} />
-        
-        <footer className="mt-5 pt-4 border-top">
+
+        <footer className="blog-post-footer">
           <Link href="/" className="back-link">
-            ← Back to home
+            Back to home
           </Link>
         </footer>
       </article>
