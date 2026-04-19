@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Prevent access to admin or private areas if any
+Disallow: /admin/
+Disallow: /private/
+
+# Add your sitemap if you have one
+Sitemap: https://atharva2099.github.io/280CharsArentEnough/sitemap.xml
